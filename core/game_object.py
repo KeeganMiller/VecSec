@@ -1,5 +1,6 @@
 from __future__ import annotations
 from pyray import *
+from resource_manager import ResourceManager
 
 
 class GameObject:
