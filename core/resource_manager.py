@@ -51,6 +51,12 @@ class ResourceManager:
     def get_texture(path: str = "", name: str = ""):
         return next((tex for tex in ResourceManager.loaded_textures if tex.texture_name == name or tex.path == path), None)
     
+    @staticmethod
+    def unload_texture_by_name(name: str):
+        texture = ResourceManager.get_texture(name=name)
+        if texture is not None:
+            unload_texture(texture.texture)
+    
 
 
 class TextureData:
