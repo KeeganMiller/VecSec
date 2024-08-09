@@ -1,9 +1,12 @@
+from __future__ import annotations
 from pyray import *
 from core.game_object import *
 
 class ResourceManager:
     objects_to_start: list[GameObject] = []
     active_objects: list[GameObject] = []
+
+    loaded_textures: list[TextureData] = []
 
     @staticmethod
     def add_game_object(go: GameObject):
@@ -35,3 +38,23 @@ class ResourceManager:
         for obj in ResourceManager.active_objects:
             if obj.is_active:
                 obj._draw()
+
+    @staticmethod
+    def load_texture(path: str, name: str) -> TextureData | None:
+        texture: Texture = load_texture(path)
+        if texture.id > 0:
+            data = TextureData(texture_name=name, texture_path=path, texture=texture)
+            ResourceManager.loaded_textures.append(data)
+            return data
+        
+    @staticmethod
+    def get_texture(path: str = "", name: str = ""):
+        return next((tex for tex in ResourceManager.loaded_textures if tex.texture_name == name or tex.path == path), None)
+    
+
+
+class TextureData:
+    def __init__(self, texture_name: str, texture_path: str, texture: Texture):
+        self.texture_name = texture_name
+        self.texture_path = texture_path
+        self.texture = texture
