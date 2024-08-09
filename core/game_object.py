@@ -6,10 +6,7 @@ class GameObject:
     def __init__(self, name: str) -> None:
         self.name: str = name
         self.local_position: Vector2 = Vector2(0, 0)
-        self.position: Vector2 = Vector2(0, 0)
         self.local_scale: Vector2 = Vector2(0, 0)
-        self.scale: float = 1
-        self.local_rotation: float = 0
         self.rotation: float = 0
 
         self.parent: GameObject = None
