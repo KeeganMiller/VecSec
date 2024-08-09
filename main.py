@@ -1,4 +1,7 @@
 from pyray import *
+from core.game_object import GameObject
+from test_go import TestGo
+from core.resource_manager import ResourceManager
 
 class Main:
 
@@ -22,18 +25,23 @@ class Main:
 
         init_window(Main._window_width, Main._window_height, Main._window_title)
         
+    @staticmethod
+    def create_resources():
+        go: TestGo = TestGo(name="TestGo")
+        ResourceManager.add_game_object(go)
 
     def run(**kwargs):
         set_target_fps(kwargs['fps'] if 'fps' in kwargs else 60)
         while Main.is_running and not window_should_close():
             # Update here
-            print('Hello, World!')
+            ResourceManager._update(get_fps())
 
             begin_drawing()
             clear_background(WHITE)
-            draw_text("Hello, World", 100, 100, 32, BLACK)
+            ResourceManager._draw()
             end_drawing()
 
 
 Main.create_window()
+Main.create_resources()
 Main.run()

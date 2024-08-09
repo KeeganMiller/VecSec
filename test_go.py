@@ -11,4 +11,4 @@ class TestGo(GameObject):
 
     def _draw(self) -> None:
         super()._draw()
-        draw_text(f"GO: {self.name}", self.position.x, self.position.y, 32, BLACK)
+        draw_text(f"GO: {self.name}", int(self.position.x), int(self.position.y), 32, BLACK)

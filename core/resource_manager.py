@@ -1,5 +1,5 @@
 from pyray import *
-from game_object import *
+from core.game_object import *
 
 class ResourceManager:
     objects_to_start: list[GameObject] = []

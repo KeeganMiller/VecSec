@@ -1,6 +1,5 @@
 from __future__ import annotations
 from pyray import *
-from resource_manager import ResourceManager
 
 
 class GameObject:
@@ -9,10 +8,8 @@ class GameObject:
         self.local_position: Vector2 = Vector2(0, 0)
         self.local_scale: Vector2 = Vector2(0, 0)
         self.rotation: float = 0
-
-        self.parent: GameObject = None
+        self._parent: GameObject = None
         self.children: list[GameObject] = []
-
         self.is_active: bool = True
 
     def _initialize(self):
@@ -33,21 +30,21 @@ class GameObject:
     
     @property
     def parent(self):
-        return self.parent
+        return self._parent
     
     @parent.setter
     def parent(self, value: GameObject):
-        if not parent == None:
-            self.parent.children.remove(self)
+        if not self._parent == None:
+            self._parent.children.remove(self)
 
         parent = value
-        if not parent == None:
-            self.parent.children.add(self)
+        if not self._parent == None:
+            self._parent.children.add(self)
 
 
     @property
     def position(self):
-        if not self.parent == None:
+        if self.parent is None:
             return self.local_position
         else:
             return vector2_add(self.parent.position, self.local_position)
@@ -58,7 +55,7 @@ class GameObject:
 
     @property
     def rotation(self):
-        if not self.parent == None:
+        if self.parent is None:
             return self.local_rotation
         else:
             return self.parent.rotation + self.local_rotation
@@ -69,7 +66,7 @@ class GameObject:
 
     @property
     def scale(self):
-        if not self.parent == None:
+        if self.parent is None:
             return self.local_scale
         else:
             return vector2_multiply(self.parent.scale, self.local_scale)
