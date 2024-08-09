@@ -15,13 +15,15 @@ class GameObject:
         self.parent: GameObject = None
         self.children: list[GameObject] = []
 
+        self.is_active: bool = True
+
     def _initialize(self):
         pass
 
     def _start(self):
         pass
 
-    def _update(self):
+    def _update(self, dt: float):
         pass
 
     def _draw(self):
