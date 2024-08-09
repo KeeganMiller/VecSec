@@ -3,9 +3,15 @@ from pyray import *
 class GameObject:
     def __init__(self, name: str) -> None:
         self.name: str = name
+        self.local_position: Vector2 = Vector2(0, 0)
         self.position: Vector2 = Vector2(0, 0)
+        self.local_scale: Vector2 = Vector2(0, 0)
         self.scale: float = 1
+        self.local_rotation: float = 0
         self.rotation: float = 0
+
+        self.parent: GameObject = None
+        self.children: list[GameObject] = []
 
     def _initialize(self):
         pass
@@ -21,5 +27,40 @@ class GameObject:
 
     def _destroy(self):
         pass
+
+    @property
+    def position(self):
+        if not self.parent == None:
+            return self.local_position
+        else:
+            return vector2_add(self.parent.position, self.local_position)
+        
+    @position.setter
+    def position(self, value: Vector2):
+        self.local_position = value
+
+    @property
+    def rotation(self):
+        if not self.parent == None:
+            return self.local_rotation
+        else:
+            return self.parent.rotation + self.local_rotation
+        
+    @rotation.setter
+    def rotation(self, value: float):
+        self.local_rotation = value
+
+    @property
+    def scale(self):
+        if not self.parent == None:
+            return self.local_scale
+        else:
+            return vector2_multiply(self.parent.scale, self.local_scale)
+        
+
+    @scale.setter
+    def scale(self, value: float):
+        self.local_scale = value
+
 
     
