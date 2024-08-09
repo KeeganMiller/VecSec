@@ -1,4 +1,6 @@
+from __future__ import annotations
 from pyray import *
+
 
 class GameObject:
     def __init__(self, name: str) -> None:
@@ -27,6 +29,21 @@ class GameObject:
 
     def _destroy(self):
         pass
+
+    
+    @property
+    def parent(self):
+        return self.parent
+    
+    @parent.setter
+    def parent(self, value: GameObject):
+        if not parent == None:
+            self.parent.children.remove(self)
+
+        parent = value
+        if not parent == None:
+            self.parent.children.add(self)
+
 
     @property
     def position(self):
