@@ -6,7 +6,7 @@ class GameObject:
     def __init__(self, name: str) -> None:
         self.name: str = name
         self.local_position: Vector2 = Vector2(0, 0)
-        self.local_scale: Vector2 = Vector2(0, 0)
+        self.local_scale: Vector2 = Vector2(1, 1)
         self.rotation: float = 0
         self._parent: GameObject = None
         self.children: list[GameObject] = []
