@@ -3,10 +3,11 @@ from core.game_object import GameObject
 from core.resource_manager import ResourceManager, TextureData
 
 class Sprite(GameObject):
-    def __init__(self, name: str, texture_name: str):
+    def __init__(self, name: str, **kwargs):
         super().__init__(name = name)
-        self.texture_name: str = texture_name
+        self.texture_name: str = kwargs['texture_name'] if 'texture_name' in kwargs else ""
         self.texture: TextureData
+        self.color = kwargs['tint'] if 'tint' in kwargs else WHITE
 
     def set_texture(self, **kwargs) -> None:
         if 'texture_name' in kwargs:
@@ -28,5 +29,10 @@ class Sprite(GameObject):
                 print(f'Failed to load texture with path {kwargs['texture_path']}')
             else:
                 print(f'{self.texture.name} successfully loaded')
+
+    def _draw(self, **kwargs):
+        super()._draw()
+        if self.texture is not None and self.texture.texture.id > 0:
+            draw_texture(self.texture.texture, 100, 100, WHITE)
             
         

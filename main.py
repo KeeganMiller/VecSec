@@ -2,6 +2,7 @@ from pyray import *
 from core.game_object import GameObject
 from test_go import TestGo
 from core.resource_manager import ResourceManager
+from core.sprite import Sprite
 
 class Main:
 
@@ -27,8 +28,10 @@ class Main:
         
     @staticmethod
     def create_resources():
-        go: TestGo = TestGo(name="TestGo")
-        ResourceManager.add_game_object(go)
+        ResourceManager.load_texture(path="assets/test.png", name="test_sprite")
+        spriteGo: Sprite = Sprite(name="sprite")
+        spriteGo.set_texture(texture_name="test_sprite")
+        ResourceManager.add_game_object(spriteGo)
 
     def run(**kwargs):
         set_target_fps(kwargs['fps'] if 'fps' in kwargs else 60)
